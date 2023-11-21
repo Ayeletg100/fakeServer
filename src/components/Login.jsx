@@ -1,12 +1,16 @@
 import React from "react";
-
+import {}
 const Login = () => {
+  function checkUser() {}
   return (
     <div>
-      <label></label>
-      <input></input>
-      <label></label>
-      <input></input>
+      <form>
+        <label>username:</label>
+        <input type="text"></input>
+        <label>password</label>
+        <input type="text"></input>
+        <button onClick={checkUser}>enter</button>
+      </form>
     </div>
   );
 };
