@@ -1,0 +1,11 @@
+.RegisterForm{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 20px;
+}
+input{
+    padding: 10px;
+    margin: 5px;
+    font-size: 1.1rem;
+}
