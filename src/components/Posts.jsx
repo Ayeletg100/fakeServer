@@ -36,7 +36,7 @@ function Posts() {
     return (
       <>
         <h1>There are no posts</h1>
-        <button onClick={handleAddPost}>Add post</button>
+        <button>Add post</button>
       </>
     );
   }
