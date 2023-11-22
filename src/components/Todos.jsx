@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TodosStyle.css";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import Todo from "./Todo";
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [originalTodos, setOriginalTodos] = useState([]);
@@ -9,6 +9,8 @@ const Todos = () => {
   const [filter, setFilter] = useState("");
   const [checkboxStates, setCheckboxStates] = useState({});
   const local = JSON.parse(localStorage.getItem("currentUser"));
+  const [newTodo, setnewTodo] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/todos?userId=${local.id}`)
@@ -26,7 +28,7 @@ const Todos = () => {
         setCheckboxStates(initialCheckboxStates);
       });
   }, []);
-
+  useEffect(() => {});
   const searchTodo = (e) => {
     const searchTerm = e.target.value.toLowerCase();
     setFilter((prev) => [...prev, searchTerm]);
@@ -61,19 +63,70 @@ const Todos = () => {
     setFilteredTodos(originalTodos);
   };
 
-  const checking = (e, todoId) => {
-    const updatedCheckboxStates = {
-      ...checkboxStates,
-      [todoId]: e.currentTarget.checked,
-    };
-    // useEffect(() => {
-    //   fetch(`http://localhost:3000/todos?userId=${local.id}?id=${todoId}`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(e.target.checked),
-    //   });
-    // }, []);
-    setCheckboxStates(updatedCheckboxStates);
+  const checking = async (e, todoId) => {
+    try {
+      console.log(todoId);
+      // Update the local state
+      const updatedCheckboxStates = {
+        ...checkboxStates,
+        [todoId]: e.currentTarget.checked,
+      };
+      setCheckboxStates(updatedCheckboxStates);
+
+      // Update the database
+
+      const res = fetch(`http://localhost:3000/todos?userId=${local.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // init checkbox states from the database
+          data.map((state) => {
+            if (state.id === todoId) {
+              state.completed = e.currentTarget.checked;
+              const response = fetch(`http://localhost:3000/todos/${todoId}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(state),
+              });
+            }
+          });
+        });
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  };
+
+  const newTodofunc = () => {
+    navigate("/todos/newtodo");
+    return <Todo newTodo={newTodo} setnewTodo={setnewTodo} />;
+  };
+  const deleteitem = async (todoId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/todos/${todoId.target.id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete todo with ID ${todoId}`);
+      }
+
+      // Remove the deleted todo from state
+      setOriginalTodos((prev) =>
+        prev.filter((todo) => todo.id !== +todoId.target.id)
+      );
+      setFilteredTodos((prev) =>
+        prev.filter((todo) => todo.id !== +todoId.target.id)
+      );
+
+      console.log(`Todo with ID ${todoId.target.id} deleted successfully`);
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
   };
 
   return (
@@ -86,6 +139,9 @@ const Todos = () => {
           name=""
           id=""
         />
+        <button className="items" onClick={newTodofunc}>
+          Create New One
+        </button>
         <button className="items" onClick={sortAZ}>
           Sort A-Z
         </button>
@@ -106,13 +162,16 @@ const Todos = () => {
               completed:
               <input
                 className="items"
-                id={`checkedcomp${todo.id}`}
+                id={`${todo.id}`}
                 name={`checkedcomp${todo.id}`}
                 type="checkbox"
                 checked={checkboxStates[todo.id]}
                 onChange={(e) => checking(e, todo.id)}
               />
             </label>
+            <button id={todo.id} className="items" onClick={deleteitem}>
+              Delete
+            </button>
           </div>
         ))}
       </div>

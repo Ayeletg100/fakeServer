@@ -12,7 +12,7 @@ import "./App.css";
 import "./components/NavLinkStyle.css";
 import Posts from "./components/Posts";
 import Todos from "./components/Todos";
-
+import Todo from "./components/Todo";
 function App() {
   const local = localStorage.getItem("currentUser");
 
@@ -52,6 +52,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/todos" element={<Todos />} />
         <Route path="/posts" element={<Posts />} />
+        <Route path="/todos/newtodo" element={<Todo />} />
       </Routes>
     </Router>
   );
