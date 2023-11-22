@@ -5,6 +5,7 @@
     margin: 10px;
     padding: 10px;
     transition: all 0.5s;
+    
 
 }
 .items{
@@ -20,4 +21,8 @@
 .num{
     background-color: rgb(152, 150, 150);
     color: black;
+}
+
+.main-container{
+    margin: 2vh;
 }

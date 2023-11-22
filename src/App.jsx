@@ -7,13 +7,30 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { Home } from "./components/Home";
+import Home from "./components/Home";
 import "./App.css";
 import "./components/NavLinkStyle.css";
 import Posts from "./components/Posts";
 import Todos from "./components/Todos";
 
 function App() {
+  const local = localStorage.getItem("currentUser");
+
+  const routes = () => {
+    if (local) {
+      return (
+        <>
+          <NavLink className="item" to="/todos" activeClassName="active">
+            Todos
+          </NavLink>
+          <NavLink className="item" to="/posts" activeClassName="active">
+            posts
+          </NavLink>
+        </>
+      );
+    }
+  };
+
   return (
     <Router>
       <div className="nav-container">
@@ -24,6 +41,7 @@ function App() {
           <NavLink className="item" to="/register" activeClassName="active">
             Register
           </NavLink>
+          {routes()}
         </nav>
       </div>
 
