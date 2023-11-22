@@ -13,7 +13,7 @@ function Post(props) {
             <h5>{props.id}</h5>
           </div>
         </Link>
-        <button>delete</button>
+        <button onClick={() => props.delete(props.id)}>delete</button>
       </div>
     </>
   );
