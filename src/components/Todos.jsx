@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./TodosStyle.css";
+import { NavLink } from "react-router-dom";
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
@@ -76,30 +77,46 @@ const Todos = () => {
   };
 
   return (
-    <div>
-      <input onChange={searchTodo} type="search" name="" id="" />
-      <button onClick={sortAZ}>Sort A-Z</button>
-      <button onClick={filterChecked}>Show Checked</button>
-      <button onClick={filterUnchecked}>Show Unchecked</button>
-      <button onClick={showAll}>Show All</button>
-      {filteredTodos.map((todo, index) => (
-        <div key={index} className="todosContainer">
-          <div className="items num">Number : {todo.id}</div>
-          <div className="items">Title : {todo.title}</div>
-          <label className="items" htmlFor={`checkedcomp${todo.id}`}>
-            completed:
-            <input
-              className="items"
-              id={`checkedcomp${todo.id}`}
-              name={`checkedcomp${todo.id}`}
-              type="checkbox"
-              checked={checkboxStates[todo.id]}
-              onChange={(e) => checking(e, todo.id)}
-            />
-          </label>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="main-container">
+        <input
+          className="items"
+          onChange={searchTodo}
+          type="search"
+          name=""
+          id=""
+        />
+        <button className="items" onClick={sortAZ}>
+          Sort A-Z
+        </button>
+        <button className="items" onClick={filterChecked}>
+          Show Checked
+        </button>
+        <button className="items" onClick={filterUnchecked}>
+          Show Unchecked
+        </button>
+        <button className="items" onClick={showAll}>
+          Show All
+        </button>
+        {filteredTodos.map((todo, index) => (
+          <div key={index} className="todosContainer">
+            <div className="items num">Number : {todo.id}</div>
+            <div className="items">Title : {todo.title}</div>
+            <label className="items" htmlFor={`checkedcomp${todo.id}`}>
+              completed:
+              <input
+                className="items"
+                id={`checkedcomp${todo.id}`}
+                name={`checkedcomp${todo.id}`}
+                type="checkbox"
+                checked={checkboxStates[todo.id]}
+                onChange={(e) => checking(e, todo.id)}
+              />
+            </label>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
