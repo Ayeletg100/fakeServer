@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./RegisterStyle.css";
 const Register = () => {
   const [inputs, setinputs] = useState({});
+  const navigate = useNavigate();
   async function onSubmitRegister(e) {
     e.preventDefault();
     if (inputs.website !== inputs.verifyPassword) {
@@ -16,6 +19,7 @@ const Register = () => {
         body: JSON.stringify(inputs),
       });
       await alert("the user has been created successfully");
+      navigate("/");
     }
   }
 
