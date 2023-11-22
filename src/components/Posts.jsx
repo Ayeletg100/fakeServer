@@ -5,19 +5,19 @@ import Post from "./Post";
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currUser = JSON.parse(localStorage.getItem("currentUser"));
   useEffect(() => {
     async function loadPosts() {
       try {
         setLoading(true);
-        const resPosts = await fetch(
-          `http://localhost:3000/posts/${currentUser.id}`
-        );
+        const resPosts = await fetch("http://localhost:3000/posts/");
         if (!resPosts.ok) {
           throw new Error("Failed to fetch posts.");
         }
         const dataPosts = await resPosts.json();
-        setPosts(dataPosts);
+        console.log("dataPosts: ", dataPosts);
+        const myPosts = dataPosts.filter((post) => post.userId === currUser.id);
+        setPosts(myPosts);
       } catch (error) {
         console.log(error);
       } finally {
@@ -36,7 +36,7 @@ function Posts() {
     return (
       <>
         <h1>There are no posts</h1>
-        <button>Add post</button>
+        <button onClick={handleAddPost}>Add post</button>
       </>
     );
   }
@@ -45,7 +45,12 @@ function Posts() {
     <>
       <div>
         {posts.map((post) => (
-          <Post id={post.id} title={post.title} body={post.body} />
+          <Post
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            body={post.body}
+          />
         ))}
       </div>
       <div>
