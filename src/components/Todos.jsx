@@ -7,10 +7,9 @@ const Todos = () => {
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filter, setFilter] = useState("");
   const [checkboxStates, setCheckboxStates] = useState({});
+  const local = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
-    const local = JSON.parse(localStorage.getItem("currentUser"));
-
     fetch(`http://localhost:3000/todos?userId=${local.id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -66,6 +65,13 @@ const Todos = () => {
       ...checkboxStates,
       [todoId]: e.currentTarget.checked,
     };
+    // useEffect(() => {
+    //   fetch(`http://localhost:3000/todos?userId=${local.id}?id=${todoId}`, {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(e.target.checked),
+    //   });
+    // }, []);
     setCheckboxStates(updatedCheckboxStates);
   };
 
