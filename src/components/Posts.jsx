@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Post from "./Post";
-
+import { PostsContext } from "../context/PostsContext";
 function Posts() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [IsAddingPost, setIsAddingPost] = useState(false);
   const currUser = JSON.parse(localStorage.getItem("currentUser"));
+  const { posts, setPosts } = useContext(PostsContext);
+  const [loading, setLoading] = useState(false);
+  const goToNewPost = useNavigate();
   const { postId } = useParams();
   console.log(postId);
   async function loadPosts() {
     try {
       setLoading(true);
-      const resPosts = await fetch("http://localhost:3000/posts/");
+      const resPosts = await fetch("http://localhost:3000/posts");
       if (!resPosts.ok) {
         throw new Error("Failed to fetch posts.");
       }
       const dataPosts = await resPosts.json();
-      console.log("dataPosts: ", dataPosts);
+
       const myPosts = dataPosts.filter((post) => post.userId === currUser.id);
       setPosts(myPosts);
     } catch (error) {
@@ -41,9 +41,9 @@ function Posts() {
     });
   }
 
-  //   function handleAddPost(){
-
-  //   }
+  function handleAddPost() {
+    goToNewPost("new");
+  }
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -53,7 +53,7 @@ function Posts() {
     return (
       <>
         <h1>There are no posts</h1>
-        {/* <button onClick={handleAddPost}>Add post</button> */}
+        <button onClick={handleAddPost}>Add post</button>
       </>
     );
   }
@@ -61,6 +61,10 @@ function Posts() {
   return (
     <>
       <h1>Posts:</h1>
+      <Link to="new">
+        <button>Add post</button>
+      </Link>
+
       <div>
         {posts.map((post) => (
           <Post
@@ -72,10 +76,7 @@ function Posts() {
           />
         ))}
       </div>
-      <div>
-        <button>Add post</button>
-        {/* onClick={handleGoToNewPosts} */}
-      </div>
+      <div></div>
     </>
   );
 }

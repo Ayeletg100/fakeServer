@@ -13,6 +13,9 @@ import "./components/NavLinkStyle.css";
 import Posts from "./components/Posts";
 import Todos from "./components/Todos";
 import Todo from "./components/Todo";
+import NewPost from "./components/NewPost";
+import PostDetail from "./components/PostDetail";
+import { PostsProvider } from "./context/PostsContext";
 function App() {
   const local = localStorage.getItem("currentUser");
 
@@ -45,15 +48,20 @@ function App() {
         </nav>
       </div>
 
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/todos" element={<Todos />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/todos/newtodo" element={<Todo />} />
-      </Routes>
+      <PostsProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/todos" element={<Todos />} />
+          <Route path="/todos/newtodo" element={<Todo />} />
+          <Route path="/posts" element={<Posts />}>
+            <Route path=":id" element={<PostDetail />} />
+            <Route path="new" element={<NewPost />} />
+          </Route>
+        </Routes>
+      </PostsProvider>
     </Router>
   );
 }
