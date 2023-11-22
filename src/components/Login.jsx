@@ -9,7 +9,8 @@ export const Login = () => {
   function handleGoToRegisterClick() {
     goToRegister("/register");
   }
-  async function checkUser() {
+  async function checkUser(e) {
+    e.preventDefault();
     try {
       const users = await fetch(" http://localhost:3000/users");
       if (!users.ok)
@@ -22,6 +23,7 @@ export const Login = () => {
         setUserDoesntExist(true);
       } else {
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        goToRegister("/home");
       }
     } catch (err) {
       console.log(err);

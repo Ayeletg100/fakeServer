@@ -17,21 +17,19 @@ function App() {
       <div className="nav-container">
         <nav>
           <NavLink className="item" to="/" activeClassName="active" end>
-            Home
+            Login
           </NavLink>
           <NavLink className="item" to="/register" activeClassName="active">
             Register
-          </NavLink>
-          <NavLink className="item" to="/login" activeClassName="active">
-            Login
           </NavLink>
         </nav>
       </div>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );
