@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useNavigate } from "react";
-const Login = () => {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+export const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [userDoesntExist, setUserDoesntExist] = useState(false);
@@ -19,6 +20,8 @@ const Login = () => {
       );
       if (currentUser === undefined) {
         setUserDoesntExist(true);
+      } else {
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
       }
     } catch (err) {
       console.log(err);
@@ -32,22 +35,22 @@ const Login = () => {
         <input
           name="username"
           type="text"
+          value={userName}
           onChange={(e) => {
             setUserName(e.target.value);
           }}
-        >
-          {userName}
-        </input>
+        />
+
         <label htmlFor="password">password</label>
         <input
           name="password"
           type="text"
+          value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-        >
-          {password}
-        </input>
+        />
+
         <button onClick={checkUser}>enter</button>
       </form>
       {userDoesntExist && "user does not exist"}
