@@ -1,12 +1,9 @@
 import React from "react";
 import "./App.css";
-import Todos from "./components/Todos";
+import Posts from "./components/Posts";
+
 const App2 = () => {
-  return (
-    <div>
-      <Todos />
-    </div>
-  );
+  return <Posts />;
 };
 
 export default App2;

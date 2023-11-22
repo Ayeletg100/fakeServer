@@ -10,7 +10,7 @@ import Register from "./components/Register";
 import { Home } from "./components/Home";
 import "./App.css";
 import "./components/NavLinkStyle.css";
-import Todos from "./components/Todos";
+import Posts from "./components/Posts";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/todos" element={<Todos />} />
+        <Route path="/posts/:id" element={<Posts />} />
       </Routes>
     </Router>
   );
