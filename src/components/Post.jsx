@@ -5,7 +5,7 @@ function Post(props) {
   return (
     <>
       <div key={props.id}>
-        <Link to={props.id}>
+        <Link to={`${props.id}`}>
           <div>
             <h4>{props.title}</h4>
             <h5>{props.id}</h5>

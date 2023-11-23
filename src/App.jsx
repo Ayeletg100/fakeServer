@@ -56,7 +56,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/todos" element={<Todos />} />
           <Route path="/todos/newtodo" element={<Todo />} />
-          <Route path="/posts" element={<Posts />}>
+          <Route path="/posts">
+            <Route index element={<Posts />} />
             <Route path=":id" element={<PostDetail />} />
             <Route path="new" element={<NewPost />} />
           </Route>

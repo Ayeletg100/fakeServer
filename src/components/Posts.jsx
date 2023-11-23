@@ -61,9 +61,7 @@ function Posts() {
   return (
     <>
       <h1>Posts:</h1>
-      <Link to="new">
-        <button>Add post</button>
-      </Link>
+      <button onClick={handleAddPost}> Add post</button>
 
       <div>
         {posts.map((post) => (
