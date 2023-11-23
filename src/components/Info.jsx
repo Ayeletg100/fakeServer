@@ -41,13 +41,15 @@ const Info = () => {
             <strong>City</strong> : {local.address.city}
           </div>
           <div>
-            <strong>geo </strong>:{" "}
+            <hr />
+            <strong>geo </strong>:
             <div>
               <strong>lat</strong> : {local.address.geo.lat}{" "}
             </div>{" "}
             <div>
               <strong>lng</strong> : {local.address.geo.lng}
             </div>
+            <hr />
           </div>
           <div>
             <strong>street</strong> : {local.address.street}
