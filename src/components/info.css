@@ -1,0 +1,23 @@
+.infoContainer{
+    margin: 10px;
+    padding: 10px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+nav{
+    width: 100%;
+}
+.titlew{
+    padding: 10px;
+    margin: 10px;
+    font-size: 3rem;
+}
+strong {
+    color: rgb(32, 28, 28);
+}
+hr{
+margin: 20px;
+
+}

@@ -1,12 +1,36 @@
 import React from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import Posts from "./Posts";
-import Todos from "./Todos";
-
+import { NavLink, Outlet } from "react-router-dom";
+import "./NavLinkStyle.css";
 function Home() {
-  return <div className="nav-container"></div>;
+  return (
+    <>
+      <div className="nav-container">
+        <nav>
+          <NavLink className="item" to="todos" activeClassName="active">
+            Todos
+          </NavLink>
+          <NavLink className="item" to="posts" activeClassName="active">
+            posts
+          </NavLink>
+          <NavLink className="item" to="info" activeClassName="active">
+            info
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              const datadel = localStorage.removeItem("currentUser");
+              useNavigate("/");
+            }}
+            className="item log-out"
+            activeClassName="active"
+            to="/"
+          >
+            Log Out
+          </NavLink>
+          <Outlet />
+        </nav>
+      </div>
+    </>
+  );
 }
 
 export default Home;

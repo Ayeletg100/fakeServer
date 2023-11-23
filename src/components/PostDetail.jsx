@@ -27,6 +27,7 @@ function PostDetail() {
       console.log("resComments: ", resComments);
 
       const dataComments = await resComments.json();
+      console.log(dataComments);
 
       setComments(dataComments);
     } catch (error) {
