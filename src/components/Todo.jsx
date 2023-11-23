@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 const Todo = ({ newTodo, setnewTodo }) => {
   const [inputs, setinputs] = useState({});
   const navigate = useNavigate();
+
   const local = JSON.parse(localStorage.getItem("currentUser"));
   async function onSubmitRegister(e) {
     e.preventDefault();

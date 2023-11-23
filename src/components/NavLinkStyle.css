@@ -1,7 +1,7 @@
 .item{
-    flex-direction: column;
+
     border: 1px solid black;
-    margin: 1px;
+    margin:1px;
     padding: 10px;
     border-radius: 2px;
     transition: all 0.7s;
@@ -12,7 +12,6 @@
     transition: all 0.7s;
 }
 .nav-container{
-    position: fixed;
     top: 2vh;
     left: 0;
 }
