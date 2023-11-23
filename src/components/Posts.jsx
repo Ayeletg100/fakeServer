@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import "./Posts.css";
 import Post from "./Post";
 import { PostsContext } from "../context/PostsContext";
 function Posts() {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
+import "./Posts.css";
 function PostDetail() {
   const [comments, setComments] = useState([]);
   const { id } = useParams();
@@ -37,14 +38,14 @@ function PostDetail() {
   //
   return (
     <>
-      <div>
+      <div className="container-postDetail">
         <h2>{postObj.title}</h2>
         <p>{postObj.body}</p>
         <button onClick={() => setCommentsPressed((prev) => !prev)}>
           comments
         </button>
         {commentsPressed === true && (
-          <div>
+          <div className="container-comment">
             {comments.map((comment) => (
               <Comment
                 key={comment.id}
