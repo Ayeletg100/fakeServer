@@ -28,6 +28,7 @@ function Home() {
           </NavLink>
           <Outlet />
         </nav>
+        <h1>Home</h1>
       </div>
     </>
   );
