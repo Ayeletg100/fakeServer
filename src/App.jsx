@@ -75,6 +75,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/todos" element={<Todos />} />
+          <Route path="/info" element={<Info />} />
           <Route path="/todos/newtodo" element={<Todo />} />
           <Route path="/posts" element={<Posts />}>
             <Route path=":id" element={<PostDetail />} />
