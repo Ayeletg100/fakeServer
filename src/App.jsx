@@ -4,6 +4,7 @@ import {
   NavLink,
   Route,
   Routes,
+  useNavigate,
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -13,9 +14,14 @@ import "./components/NavLinkStyle.css";
 import Posts from "./components/Posts";
 import Todos from "./components/Todos";
 import Todo from "./components/Todo";
+import Info from "./components/Info";
 function App() {
   const local = localStorage.getItem("currentUser");
-
+  const logoutfromapp = () => {
+    const navigate = useNavigate();
+    navigate("/");
+    localStorage.clear();
+  };
   const routes = () => {
     if (local) {
       return (
@@ -26,6 +32,28 @@ function App() {
           <NavLink className="item" to="/posts" activeClassName="active">
             posts
           </NavLink>
+          <NavLink className="item" to="/info" activeClassName="active">
+            info
+          </NavLink>
+          <NavLink
+            onClick={logoutfromapp}
+            className="item log-out"
+            activeClassName="active"
+            to="/login"
+          >
+            Log Out
+          </NavLink>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <NavLink className="item" to="/" activeClassName="active" end>
+            Login
+          </NavLink>
+          <NavLink className="item" to="/register" activeClassName="active">
+            Register
+          </NavLink>
         </>
       );
     }
@@ -34,21 +62,14 @@ function App() {
   return (
     <Router>
       <div className="nav-container">
-        <nav>
-          <NavLink className="item" to="/" activeClassName="active" end>
-            Login
-          </NavLink>
-          <NavLink className="item" to="/register" activeClassName="active">
-            Register
-          </NavLink>
-          {routes()}
-        </nav>
+        <nav>{routes()}</nav>
       </div>
 
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/info" element={<Info />} />
         <Route path="/home" element={<Home />} />
         <Route path="/todos" element={<Todos />} />
         <Route path="/posts" element={<Posts />} />
